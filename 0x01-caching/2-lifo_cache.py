@@ -1,13 +1,13 @@
-#!/usr/bine/env python3
+#!/usr/bin/env python3
 """
-    FIFOCache Class
+    LIFOCache Class.
 """
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class FIFOCache(BaseCaching):
+class LIFOCache(BaseCaching):
     """
-        Assign FIFOCache Class.
+        Assign LIFOCache Class.
     """
     def __init__(self):
         super().__init__()
@@ -17,26 +17,29 @@ class FIFOCache(BaseCaching):
             Assign to the dict self.cache_data
             the item value for the key 'key',
             if key or item is None, this method
-            should ot do anything, if the number
+            should not do anyhing, if the number
             of items in self.cache_data is higher
-            than BaseCaching.MAX_ITEMS, then you
-            must discard the first item in cache.
+            than BaseCaching.MAX_ITEMS, you must
+            Discard the last put in cache.
         """
         if key is None or item is None:
             return None
+        if len(self.cache_data) >= 1:
+            last_item = list(self.cache_data)[-1]
         self.cache_data[key] = item
 
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            print("DISCARD: {}".format(list(self.cache_data)[0]))
-            del self.cache_data[list(self.cache_data)[0]]
+            print("DISCARD: {}".format(last_item))
+            del self.cache_data[last_item]
 
     def get(self, key):
         """
             Return the value in self.cache_data
             linked to key, if key is None or if
-            the key doesn't exists in
-            self.cache_data, return None.
+            the key doesn't exist in self.cache_data
+            return None.
         """
         if key is None or key not in self.cache_data:
             return None
+
         return self.cache_data[key]
