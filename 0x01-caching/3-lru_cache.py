@@ -40,7 +40,6 @@ class LRUCache(BaseCaching):
             the key doesn't exists in self.cache_data
             return None.
         """
-        self
         if key is None or key not in self.cache_data:
             return None
 
