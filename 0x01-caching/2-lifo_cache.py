@@ -19,8 +19,8 @@ class LIFOCache(BaseCaching):
             if key or item is None, this method
             should not do anyhing, if the number
             of items in self.cache_data is higher
-            than BaseCaching.MAX_ITEMS, you must
-            Discard the last put in cache.
+            than BaseCaching.MAX_ITEMS, Discard
+            the last put in cache (LIFO Algorithm).
         """
         if key is None or item is None:
             return None
