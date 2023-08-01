@@ -20,7 +20,7 @@ class Config(object):
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-app.config.from_object('2-app.Config')
+app.config.from_object('3-app.Config')
 
 
 @app.route('/')
@@ -28,7 +28,7 @@ def home() -> str:
     """
         render 0-index.html template.
     """
-    return render_template('2-index.html')
+    return render_template('3-index.html')
 
 
 @babel.localeselector
