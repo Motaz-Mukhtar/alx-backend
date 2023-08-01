@@ -13,16 +13,18 @@ babel = Babel(app)
 
 class Config:
     """
+        configure the app.
     """
     LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCAL = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-app.config["BABEL_DEFAULT_LOCAL"] = Config.LANGUAGES[0]
-app.config["BABEL_DEFAULT_TIMEZONE"] = 'UTC'
+app.config.from_object('1-app.Config')
 
 
 @app.route('/')
-def home():
+def home() -> str:
     """
         render 0-index.html template.
     """
