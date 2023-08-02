@@ -29,7 +29,6 @@ def home() -> str:
     """
         render 0-index.html template.
     """
-    print(g.user)
     return render_template('5-index.html')
 
 

@@ -26,3 +26,11 @@ msgstr "Bienvenue chez Holberton"
 #: templates/3-index.html
 msgid "home_header"
 msgstr "Bonjour monde!"
+
+#: templates/5-index.html
+msgid "logged_msg"
+msgstr "Vous êtes connecté en tant que %(username)s."
+
+#: templates/5-index.html
+msgid "not_logged_msg"
+msgstr "Vous n'êtes pas connecté."

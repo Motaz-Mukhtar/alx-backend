@@ -39,11 +39,13 @@ def get_locale() -> str:
         Determine the best match with supported languages.
     """
     locale = request.args.get('locale')
+    user = get_user()
 
     if locale is not None and locale in app.config['LANGUAGES']:
         return locale
-    elif get_user().get('locale'):
-        return get_user().get('locale')
+    elif user.get('locale'):
+        if user.get('locale') in app.config['LANGUAGES']:
+            return get_user().get('locale')
 
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
