@@ -6,6 +6,10 @@
 from flask import Flask, request, render_template, g
 from flask_babel import Babel
 from typing import Dict
+from pytz.exceptions import UnknownTimeZoneError
+from zoneinfo import ZoneInfo
+import pytz
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -29,7 +33,8 @@ def home() -> str:
     """
         render 0-index.html template.
     """
-    return render_template('6-index.html')
+    return render_template('index.html',
+                           timezone=get_timezone())
 
 
 @babel.localeselector
@@ -72,12 +77,36 @@ def get_user() -> Dict:
 
 
 @app.before_request
-def before_request() -> None:
+def before_request() -> str:
     """
         Set user data to local.
     """
     user = get_user()
     g.user = user
+
+
+@babel.timezoneselector
+def get_timezone() -> str:
+    """
+        Return user time zone.
+    """
+    timezone_param = request.args.get('timezone')
+    user_timezone = get_user().get('timezone')
+    timezone = 'UTC'
+
+    if timezone_param is not None:
+        timezone = timezone_param
+    elif user_timezone is not None:
+        timezone = user_timezone
+
+    try:
+        pytz.timezone(timezone)
+        dt = datetime.now(tz=ZoneInfo(timezone))
+        fmt = '%b %M, %Y, %X %p'
+        return dt.strftime(fmt)
+
+    except UnknownTimeZoneError:
+        return 'None'
 
 
 if __name__ == "__main__":
